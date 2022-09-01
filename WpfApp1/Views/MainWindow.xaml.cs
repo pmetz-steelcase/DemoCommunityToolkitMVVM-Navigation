@@ -7,9 +7,7 @@ public partial class MainWindow : Window
 {
     public MainWindow()
     {
+        DataContext = new MainWindowViewModel(); // TODO: move to xaml
         InitializeComponent();
-
-        // why do i have to set the data context here? it didn't work in MainWindow.xaml like it did for View1.xaml
-        DataContext = new MainWindowViewModel(); 
     }
 }

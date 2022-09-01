@@ -10,15 +10,25 @@ public partial class ViewModel2 : ObservableObject
     [ObservableProperty]
     private string textBoxText;
 
+    private ObservableObject AlternativeVM;
+
     public ViewModel2()
     {
         TextBoxText = "Enter text";
     }
 
+    public ViewModel2(ObservableObject altVM)
+    {
+        // store the ViewModel2 object we have received
+        AlternativeVM = altVM;
+    }
+
     [RelayCommand]
     private void SwitchToView1()
     {
-        WeakReferenceMessenger.Default.Send(
-            new ChangeViewModelMessage(new ViewModel1()));
+        // if alt vm hasnt been created, do it now
+        if (AlternativeVM == null)
+            AlternativeVM = new ViewModel1(this);
+        WeakReferenceMessenger.Default.Send(new ChangeViewModelMessage(AlternativeVM));
     }
 }
